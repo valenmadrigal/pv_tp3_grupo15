@@ -19,11 +19,11 @@ function ListaProyectos() {
   ]);
 
   return (
-    <div>
+    <div className="contenedor-proyectos">
       <h2>Lista de Proyectos</h2>
 
       {proyectos.map((proyecto) => (
-        <div key={proyecto.id}>
+        <div key={proyecto.id} className="card">
 
           <h3>{proyecto.titulo}</h3>
 
