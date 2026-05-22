@@ -1,40 +1,100 @@
-import { useState } from "react";
+import { useState } from "react"
+
+import {obtenerProyectos,agregarProyecto,eliminarProyecto,buscarProyecto} from "../service/proyectoservice"
 
 function ListaProyectos() {
 
-  const [proyectos] = useState([
-    {
-      id: 1,
-      titulo: "Sistema Escolar",
-      categoria: "Educación",
-      estado: "En progreso"
-    },
+  const [proyectos, setProyectos] =
+    useState(obtenerProyectos())
 
-    {
-      id: 2,
-      titulo: "Página Web",
-      categoria: "Diseño",
-      estado: "Finalizado"
+  const handleEliminar = (id) => {
+
+    eliminarProyecto(id)
+
+    setProyectos(obtenerProyectos())
+  }
+
+  const handleBuscar = (e) => {
+
+    const texto = e.target.value
+
+    if (texto === "") {
+
+      setProyectos(obtenerProyectos())
+
+    } else {
+
+      setProyectos(buscarProyecto(texto))
+
     }
-  ]);
+  }
+
+  const handleAgregar = () => {
+
+    const nuevoProyecto = {
+
+      id: Date.now(),
+      titulo: "Nuevo Proyecto",
+      categoria: "Web",
+      estado: "Activo"
+
+    }
+
+    agregarProyecto(nuevoProyecto)
+
+    setProyectos(obtenerProyectos())
+  }
 
   return (
+
     <div className="contenedor-proyectos">
+
       <h2>Lista de Proyectos</h2>
 
-      {proyectos.map((proyecto) => (
-        <div key={proyecto.id} className="card">
+      <input
+        type="text"
+        placeholder="Buscar proyecto"
+        onChange={handleBuscar}
+      />
 
-          <h3>{proyecto.titulo}</h3>
+      <button onClick={handleAgregar}>
+        Agregar Proyecto
+      </button>
 
-          <p>Categoría: {proyecto.categoria}</p>
+      {
+        proyectos.map((proyecto) => (
 
-          <p>Estado: {proyecto.estado}</p>
+          <div
+            key={proyecto.id}
+            className="card"
+          >
 
-        </div>
-      ))}
+            <h3>{proyecto.titulo}</h3>
+
+            <p>
+              Categoría: {proyecto.categoria}
+            </p>
+
+            <p>
+              Estado: {proyecto.estado}
+            </p>
+
+            <button
+              onClick={() =>
+                handleEliminar(proyecto.id)
+              }
+            >
+              Eliminar
+            </button>
+
+          </div>
+
+        ))
+      }
+
     </div>
-  );
+
+  )
 }
 
-export default ListaProyectos;
+export default ListaProyectos

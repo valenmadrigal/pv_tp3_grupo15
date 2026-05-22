@@ -1,7 +1,7 @@
 function header(){
     return(
         <header>
-            <h1>Proyectos educativos </h1>
+            <h1>Gestion de Proyectos educativos </h1>
         </header>
     )
 }
