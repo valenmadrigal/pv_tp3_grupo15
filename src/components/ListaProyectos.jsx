@@ -1,64 +1,107 @@
-
 import { useState } from "react";
 import proyectoService from "../service/proyectoService";
+import ProyectoCard from "./ProyectoCard";
 
 const ListaProyectos = () => {
 
-  const [proyectos, setProyectos]   = useState(proyectoService.obtenerProyectos());
-  const [busqueda, setBusqueda]     = useState("");
-  const [nuevoProyecto, setNuevo]   = useState({ titulo: "", categoria: "", estado: "Pendiente" });
+  const [proyectos, setProyectos] =
+    useState(proyectoService.obtenerProyectos());
 
-  
+  const [busqueda, setBusqueda] =
+    useState("");
+
+  const [nuevoProyecto, setNuevo] =
+    useState({
+      titulo: "",
+      categoria: "",
+      estado: "Pendiente"
+    });
+
   const proyectosFiltrados = busqueda.trim()
     ? proyectoService.buscarProyecto(busqueda)
     : proyectos;
 
-  
   const claseEstado = (estado) => {
+
     const mapa = {
-      "Completado":   "estado--completado",
-      "En progreso":  "estado--en-progreso",
-      "Pendiente":    "estado--pendiente",
+      "Completado": "estado--completado",
+      "En progreso": "estado--en-progreso",
+      "Pendiente": "estado--pendiente",
     };
+
     return mapa[estado] ?? "";
   };
 
-  
   const handleEliminar = (id) => {
+
     proyectoService.eliminarProyecto(id);
-    setProyectos(proyectoService.obtenerProyectos());
+
+    setProyectos(
+      proyectoService.obtenerProyectos()
+    );
   };
 
-  
   const handleCampo = (e) => {
-    setNuevo({ ...nuevoProyecto, [e.target.name]: e.target.value });
+
+    setNuevo({
+      ...nuevoProyecto,
+      [e.target.name]: e.target.value
+    });
   };
 
-  
   const handleAgregar = () => {
-    if (!nuevoProyecto.titulo.trim() || !nuevoProyecto.categoria.trim()) {
-      alert("Por favor completá el título y la categoría.");
+
+    if (
+      !nuevoProyecto.titulo.trim() ||
+      !nuevoProyecto.categoria.trim()
+    ) {
+
+      alert(
+        "Por favor completá el título y la categoría."
+      );
+
       return;
     }
+
     const proyecto = {
-      id:        Date.now(),
-      titulo:    nuevoProyecto.titulo.trim(),
-      categoria: nuevoProyecto.categoria.trim(),
-      estado:    nuevoProyecto.estado,
+
+      id: Date.now(),
+
+      titulo:
+        nuevoProyecto.titulo.trim(),
+
+      categoria:
+        nuevoProyecto.categoria.trim(),
+
+      estado:
+        nuevoProyecto.estado,
     };
+
     proyectoService.agregarProyecto(proyecto);
-    setProyectos(proyectoService.obtenerProyectos());
-    setNuevo({ titulo: "", categoria: "", estado: "Pendiente" });
+
+    setProyectos(
+      proyectoService.obtenerProyectos()
+    );
+
+    setNuevo({
+      titulo: "",
+      categoria: "",
+      estado: "Pendiente"
+    });
   };
 
-
   return (
+
     <main className="main">
 
-      {/* Formulario para agregar */}
       <div className="form-agregar">
+
         <div className="form-agregar__grupo">
-          <label htmlFor="titulo">Título</label>
+
+          <label htmlFor="titulo">
+            Título
+          </label>
+
           <input
             id="titulo"
             name="titulo"
@@ -67,10 +110,15 @@ const ListaProyectos = () => {
             value={nuevoProyecto.titulo}
             onChange={handleCampo}
           />
+
         </div>
 
         <div className="form-agregar__grupo">
-          <label htmlFor="categoria">Categoría</label>
+
+          <label htmlFor="categoria">
+            Categoría
+          </label>
+
           <input
             id="categoria"
             name="categoria"
@@ -79,66 +127,104 @@ const ListaProyectos = () => {
             value={nuevoProyecto.categoria}
             onChange={handleCampo}
           />
+
         </div>
 
         <div className="form-agregar__grupo">
-          <label htmlFor="estado">Estado</label>
-          <select id="estado" name="estado" value={nuevoProyecto.estado} onChange={handleCampo}>
-            <option value="Pendiente">Pendiente</option>
-            <option value="En progreso">En progreso</option>
-            <option value="Completado">Completado</option>
+
+          <label htmlFor="estado">
+            Estado
+          </label>
+
+          <select
+            id="estado"
+            name="estado"
+            value={nuevoProyecto.estado}
+            onChange={handleCampo}
+          >
+
+            <option value="Pendiente">
+              Pendiente
+            </option>
+
+            <option value="En progreso">
+              En progreso
+            </option>
+
+            <option value="Completado">
+              Completado
+            </option>
+
           </select>
+
         </div>
 
-        <button className="btn btn--primario" onClick={handleAgregar}>
+        <button
+          className="btn btn--primario"
+          onClick={handleAgregar}
+        >
           ＋ Agregar
         </button>
+
       </div>
 
-      {/* Buscador */}
       <div className="controles">
+
         <div className="buscador">
-          <span className="buscador__icono">🔍</span>
+
+          <span className="buscador__icono">
+            🔍
+          </span>
+
           <input
             className="buscador__input"
             type="text"
             placeholder="Buscar proyecto por título..."
             value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
+            onChange={(e) =>
+              setBusqueda(e.target.value)
+            }
           />
+
         </div>
-        <span style={{ color: "#616161", fontSize: ".85rem" }}>
-          {proyectosFiltrados.length} proyecto(s) encontrado(s)
+         <span className="contador-proyectos"> 
+          {proyectosFiltrados.length}
+          {" "}proyecto(s) encontrado(s)
         </span>
+
       </div>
 
-      {/* Grilla de cards */}
       <div className="proyectos-grilla">
+
         {proyectosFiltrados.length === 0 ? (
+
           <div className="sin-resultados">
-            <span className="sin-resultados__icono">📭</span>
+
+            <span className="sin-resultados__icono">
+              📭
+            </span>
+
             No se encontraron proyectos.
+
           </div>
+
         ) : (
+
           proyectosFiltrados.map((proyecto) => (
-            <div key={proyecto.id} className="card">
-              <h3 className="card__titulo">{proyecto.titulo}</h3>
-              <p className="card__categoria">📁 {proyecto.categoria}</p>
-              <span className={`card__estado ${claseEstado(proyecto.estado)}`}>
-                {proyecto.estado}
-              </span>
-              <div className="card__footer">
-                <button
-                  className="btn btn--peligro"
-                  onClick={() => handleEliminar(proyecto.id)}
-                >
-                  🗑 Eliminar
-                </button>
-              </div>
-            </div>
+
+            <ProyectoCard
+              key={proyecto.id}
+              proyecto={proyecto}
+              handleEliminar={handleEliminar}
+              claseEstado={claseEstado}
+            />
+
           ))
+
         )}
+
       </div>
+
     </main>
   );
 };

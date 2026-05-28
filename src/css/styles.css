@@ -218,3 +218,7 @@ footer{
     width:100%;
   }
 }
+.contador-proyectos {
+  color: #616161;
+  font-size: .85rem;
+}
