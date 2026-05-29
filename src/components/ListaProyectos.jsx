@@ -17,6 +17,13 @@ const ListaProyectos = () => {
       estado: "Pendiente"
     });
 
+  const [mensaje, setMensaje] = useState(null);
+
+  const mostrarMensaje = (texto, tipo = "exito") => {
+    setMensaje({ texto, tipo });
+    setTimeout(() => setMensaje(null), 4000);
+  };
+
   const proyectosFiltrados = busqueda.trim()
     ? proyectoService.buscarProyecto(busqueda)
     : proyectos;
@@ -56,8 +63,9 @@ const ListaProyectos = () => {
       !nuevoProyecto.categoria.trim()
     ) {
 
-      alert(
-        "Por favor completá el título y la categoría."
+      mostrarMensaje(
+        "Por favor completá el título y la categoría.",
+        "error"
       );
 
       return;
@@ -88,11 +96,22 @@ const ListaProyectos = () => {
       categoria: "",
       estado: "Pendiente"
     });
+
+    mostrarMensaje("Proyecto agregado correctamente.", "exito");
   };
 
   return (
 
     <main className="main">
+
+      {mensaje && (
+        <p
+          className={`mensaje mensaje--${mensaje.tipo}`}
+          role="status"
+        >
+          {mensaje.texto}
+        </p>
+      )}
 
       <div className="form-agregar">
 

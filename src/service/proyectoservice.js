@@ -125,6 +125,67 @@ const proyectoService = (() => {
         { nombre: "Hernán Aguirre",  rol: "Tester QA" },
       ],
     },
+    {
+      id: 7,
+      titulo: "Campus Virtual Interactivo",
+      categoria: "Educación",
+      estado: "En progreso",
+      descripcion: [
+        "El campus virtual ofrece aulas digitales con videoconferencia integrada, pizarra colaborativa y grabación de clases para que los estudiantes puedan repasar el contenido en cualquier momento.",
+        "Incluye un módulo de asistencia automática vinculado al calendario académico y reportes de participación para que los docentes identifiquen rápidamente a quienes necesitan apoyo adicional.",
+      ],
+      recursos: [
+        { tipo: "PDF",    label: "Manual de implementación", url: "https://drive.google.com/file/campus-manual" },
+        { tipo: "Drive",  label: "Carpeta del proyecto",     url: "https://drive.google.com/drive/campus-virtual" },
+        { tipo: "GitHub", label: "Repositorio",              url: "https://github.com/equipo7/campus-virtual" },
+      ],
+      equipo: [
+        { nombre: "Valentina Madrigal", rol: "Líder de proyecto" },
+        { nombre: "Jesús Cabrera",      rol: "Desarrollador frontend" },
+        { nombre: "Camila Romero",      rol: "Desarrolladora backend" },
+      ],
+    },
+    {
+      id: 8,
+      titulo: "Sistema de Reservas de Aulas",
+      categoria: "Administración",
+      estado: "Pendiente",
+      descripcion: [
+        "Permite reservar aulas, laboratorios y espacios comunes de la facultad mediante un calendario en línea, evitando superposiciones y centralizando la gestión de horarios.",
+        "Los administrativos pueden definir reglas de uso, bloquear fechas especiales y generar reportes de ocupación para optimizar el uso de los espacios disponibles.",
+      ],
+      recursos: [
+        { tipo: "PDF",    label: "Requerimientos funcionales", url: "https://drive.google.com/file/reservas-req" },
+        { tipo: "Drive",  label: "Carpeta del proyecto",       url: "https://drive.google.com/drive/reservas-aulas" },
+        { tipo: "GitHub", label: "Repositorio",                url: "https://github.com/equipo8/reservas-aulas" },
+      ],
+      equipo: [
+        { nombre: "Lorena Suruguay", rol: "Líder de proyecto" },
+        { nombre: "Yesica Arias",    rol: "Analista funcional" },
+        { nombre: "Jesús Cabrera",   rol: "Desarrollador fullstack" },
+      ],
+    },
+    {
+      id: 9,
+      titulo: "Observatorio de Indicadores Educativos",
+      categoria: "Investigación",
+      estado: "Completado",
+      descripcion: [
+        "Consolida indicadores de rendimiento, retención y empleabilidad de egresados en tableros interactivos para apoyar la toma de decisiones institucionales.",
+        "Los datos se actualizan periódicamente desde fuentes internas y permiten comparar cohortes, carreras y modalidades de cursado con filtros configurables.",
+      ],
+      recursos: [
+        { tipo: "PDF",    label: "Informe de resultados",  url: "https://drive.google.com/file/observatorio-informe" },
+        { tipo: "Drive",  label: "Carpeta del proyecto",   url: "https://drive.google.com/drive/observatorio" },
+        { tipo: "GitHub", label: "Repositorio",            url: "https://github.com/equipo9/observatorio-educativo" },
+      ],
+      equipo: [
+        { nombre: "Valentina Madrigal", rol: "Líder de proyecto" },
+        { nombre: "Lorena Suruguay",    rol: "Analista de datos" },
+        { nombre: "Camila Romero",      rol: "Desarrolladora backend" },
+        { nombre: "Yesica Arias",       rol: "Diseñadora UX/UI" },
+      ],
+    },
   ];
 
   const obtenerProyectos = () => [...proyectos];
