@@ -1,6 +1,6 @@
 import { useState } from "react";
-import proyectoService from "../service/proyectoService";
-import ProyectoCard from "./ProyectoCard";
+import proyectoService from "../service/proyectoservice";
+import ProyectoCard from "./proyectoCard";
 
 const ListaProyectos = () => {
 

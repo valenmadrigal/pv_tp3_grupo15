@@ -1,9 +1,13 @@
+import DetalleProyecto from "./DetalleProyecto";
 function ProyectoCard({ proyecto }) {
 
   const {
     titulo,
     categoria,
     estado,
+    descripcion,
+    recursos,
+    equipo,
     id
   } = proyecto
 
@@ -28,6 +32,11 @@ function ProyectoCard({ proyecto }) {
       <button>
         Ver detalle
       </button>
+      <DetalleProyecto 
+      descripcion={descripcion}
+      recursos={recursos}
+      equipo={equipo}
+      />
 
     </div>
 
