@@ -218,7 +218,7 @@ const ListaProyectos = () => {
               handleEliminar={handleEliminar}
               claseEstado={claseEstado}
             />
-
+            
           ))
 
         )}

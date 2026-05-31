@@ -1,14 +1,17 @@
-function ProyectoCard({ proyecto }) {
+function ProyectoCard({
+  proyecto,
+  handleEliminar,
+  claseEstado
+}) {
 
   const {
     titulo,
     categoria,
     estado,
     id
-  } = proyecto
+  } = proyecto;
 
   return (
-
     <div className="card">
 
       <h3>{titulo}</h3>
@@ -17,11 +20,11 @@ function ProyectoCard({ proyecto }) {
         Categoría: {categoria}
       </p>
 
-      <p>
+      <p className={claseEstado(estado)}>
         Estado: {estado}
       </p>
 
-      <button>
+      <button onClick={() => handleEliminar(id)}>
         Eliminar
       </button>
 
@@ -30,8 +33,7 @@ function ProyectoCard({ proyecto }) {
       </button>
 
     </div>
-
-  )
+  );
 }
 
-export default ProyectoCard
+export default ProyectoCard;
