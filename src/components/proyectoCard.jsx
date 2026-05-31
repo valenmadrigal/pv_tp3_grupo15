@@ -1,21 +1,13 @@
-<<<<<<< HEAD
 function ProyectoCard({
   proyecto,
   handleEliminar,
   claseEstado
 }) {
-=======
-import DetalleProyecto from "./DetalleProyecto";
-function ProyectoCard({ proyecto }) {
->>>>>>> 52f8af245981f82da0a7d06a03fcc2940e433b06
 
   const {
     titulo,
     categoria,
     estado,
-    descripcion,
-    recursos,
-    equipo,
     id
   } = proyecto;
 
@@ -39,11 +31,6 @@ function ProyectoCard({ proyecto }) {
       <button>
         Ver detalle
       </button>
-      <DetalleProyecto 
-      descripcion={descripcion}
-      recursos={recursos}
-      equipo={equipo}
-      />
 
     </div>
   );
