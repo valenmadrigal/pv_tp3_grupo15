@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import proyectoService from "../service/proyectoservice";
 import ProyectoCard from "./proyectoCard";
+import FormularioProyecto from "./FormularioProyecto";
 
 const ListaProyectos = () => {
 
@@ -9,13 +10,6 @@ const ListaProyectos = () => {
 
   const [busqueda, setBusqueda] =
     useState("");
-
-  const [nuevoProyecto, setNuevo] =
-    useState({
-      titulo: "",
-      categoria: "",
-      estado: "Pendiente"
-    });
 
   const [mensaje, setMensaje] = useState(null);
 
@@ -56,55 +50,10 @@ const ListaProyectos = () => {
     );
   };
 
-  const handleCampo = (e) => {
-
-    setNuevo({
-      ...nuevoProyecto,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleAgregar = () => {
-
-    if (
-      !nuevoProyecto.titulo.trim() ||
-      !nuevoProyecto.categoria.trim()
-    ) {
-
-      mostrarMensaje(
-        "Por favor completá el título y la categoría.",
-        "error"
-      );
-
-      return;
-    }
-
-    const proyecto = {
-
-      id: Date.now(),
-
-      titulo:
-        nuevoProyecto.titulo.trim(),
-
-      categoria:
-        nuevoProyecto.categoria.trim(),
-
-      estado:
-        nuevoProyecto.estado,
-    };
-
+  const handleAgregarProyecto = (proyecto) => {
     proyectoService.agregarProyecto(proyecto);
 
-    setProyectos(
-      proyectoService.obtenerProyectos()
-    );
-
-    setNuevo({
-      titulo: "",
-      categoria: "",
-      estado: "Pendiente"
-    });
-
+    setProyectos(proyectoService.obtenerProyectos());
     mostrarMensaje("Proyecto agregado correctamente.", "exito");
   };
 
@@ -121,79 +70,7 @@ const ListaProyectos = () => {
         </p>
       )}
 
-      <div className="form-agregar">
-
-        <div className="form-agregar__grupo">
-
-          <label htmlFor="titulo">
-            Título
-          </label>
-
-          <input
-            id="titulo"
-            name="titulo"
-            type="text"
-            placeholder="Nombre del proyecto"
-            value={nuevoProyecto.titulo}
-            onChange={handleCampo}
-          />
-
-        </div>
-
-        <div className="form-agregar__grupo">
-
-          <label htmlFor="categoria">
-            Categoría
-          </label>
-
-          <input
-            id="categoria"
-            name="categoria"
-            type="text"
-            placeholder="Ej: Educación"
-            value={nuevoProyecto.categoria}
-            onChange={handleCampo}
-          />
-
-        </div>
-
-        <div className="form-agregar__grupo">
-
-          <label htmlFor="estado">
-            Estado
-          </label>
-
-          <select
-            id="estado"
-            name="estado"
-            value={nuevoProyecto.estado}
-            onChange={handleCampo}
-          >
-
-            <option value="Pendiente">
-              Pendiente
-            </option>
-
-            <option value="En progreso">
-              En progreso
-            </option>
-
-            <option value="Completado">
-              Completado
-            </option>
-
-          </select>
-
-        </div>
-
-        <button
-          className="btn btn--primario"
-          onClick={handleAgregar}
-        >
-          ＋ Agregar
-        </button>
-
-      </div>
+      <FormularioProyecto onAgregar={handleAgregarProyecto} />
 
       <div className="controles">
 
