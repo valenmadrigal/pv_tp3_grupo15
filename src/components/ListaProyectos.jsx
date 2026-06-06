@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import RegistroActividad from "./RegistroActividad";
 import proyectoService from "../service/proyectoservice";
 import ProyectoCard from "./proyectoCard";
 import FormularioProyecto from "./FormularioProyecto";
@@ -20,6 +21,10 @@ const ListaProyectos = () => {
     setMensaje({ texto, tipo });
     setTimeout(() => setMensaje(null), 4000);
   };
+
+  useEffect(() => {
+    setUltimaActualizacion(new Date());
+  }, [proyectos]);
 
   const proyectosFiltrados = busqueda.trim()
     ? proyectoService.buscarProyecto(busqueda)
