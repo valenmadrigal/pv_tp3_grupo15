@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import proyectoService from "../service/proyectoservice";
 import ProyectoCard from "./proyectoCard";
 import FormularioProyecto from "./FormularioProyecto";
@@ -13,18 +13,13 @@ const ListaProyectos = () => {
 
   const [mensaje, setMensaje] = useState(null);
 
-  const [ultimaActualizacion, setUltimaActualizacion] = useState(null);
+  const [ultimaActualizacion, setUltimaActualizacion] =
+    useState(null);
 
   const mostrarMensaje = (texto, tipo = "exito") => {
     setMensaje({ texto, tipo });
     setTimeout(() => setMensaje(null), 4000);
   };
-
-  useEffect(() => {
-
-    setUltimaActualizacion(new Date());
-  
-  }, [proyectos]);
 
   const proyectosFiltrados = busqueda.trim()
     ? proyectoService.buscarProyecto(busqueda)
@@ -48,13 +43,24 @@ const ListaProyectos = () => {
     setProyectos(
       proyectoService.obtenerProyectos()
     );
+
+    setUltimaActualizacion(new Date());
   };
 
   const handleAgregarProyecto = (proyecto) => {
+
     proyectoService.agregarProyecto(proyecto);
 
-    setProyectos(proyectoService.obtenerProyectos());
-    mostrarMensaje("Proyecto agregado correctamente.", "exito");
+    setProyectos(
+      proyectoService.obtenerProyectos()
+    );
+
+    setUltimaActualizacion(new Date());
+
+    mostrarMensaje(
+      "Proyecto agregado correctamente.",
+      "exito"
+    );
   };
 
   return (
@@ -91,7 +97,8 @@ const ListaProyectos = () => {
           />
 
         </div>
-         <span className="contador-proyectos"> 
+
+        <span className="contador-proyectos">
           {proyectosFiltrados.length}
           {" "}proyecto(s) encontrado(s)
         </span>
@@ -122,7 +129,7 @@ const ListaProyectos = () => {
               handleEliminar={handleEliminar}
               claseEstado={claseEstado}
             />
-            
+
           ))
 
         )}
