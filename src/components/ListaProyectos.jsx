@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import RegistroActividad from "./RegistroActividad";
 import proyectoService from "../service/proyectoservice";
 import ProyectoCard from "./proyectoCard";
@@ -17,12 +17,18 @@ const ListaProyectos = () => {
   const [ultimaActualizacion, setUltimaActualizacion] =
     useState(null);
 
+  const esPrimerRender = useRef(true);
+
   const mostrarMensaje = (texto, tipo = "exito") => {
     setMensaje({ texto, tipo });
     setTimeout(() => setMensaje(null), 4000);
   };
 
   useEffect(() => {
+    if (esPrimerRender.current) {
+      esPrimerRender.current = false;
+      return;
+    }
     setUltimaActualizacion(new Date());
   }, [proyectos]);
 
@@ -48,8 +54,6 @@ const ListaProyectos = () => {
     setProyectos(
       proyectoService.obtenerProyectos()
     );
-
-    setUltimaActualizacion(new Date());
   };
 
   const handleAgregarProyecto = (proyecto) => {
@@ -59,8 +63,6 @@ const ListaProyectos = () => {
     setProyectos(
       proyectoService.obtenerProyectos()
     );
-
-    setUltimaActualizacion(new Date());
 
     mostrarMensaje(
       "Proyecto agregado correctamente.",
@@ -140,6 +142,8 @@ const ListaProyectos = () => {
         )}
 
       </div>
+
+      <RegistroActividad fecha={ultimaActualizacion} />
 
     </main>
   );
