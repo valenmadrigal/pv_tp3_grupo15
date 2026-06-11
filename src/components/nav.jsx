@@ -1,12 +1,21 @@
-function nav(){ 
-    return(
-        <nav>
-            <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#ListaProyectos">Proyectos</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-        </nav>
-    )
+import { NavLink } from 'react-router-dom';
+
+function nav() {
+  return (
+    <nav>
+      <ul>
+        <li>
+          <NavLink to="/dashboard">Inicio</NavLink>
+        </li>
+        <li>
+          <NavLink to="/proyectos">Proyectos</NavLink>
+        </li>
+        <li>
+          <NavLink to="/perfil">Perfil</NavLink>
+        </li>
+      </ul>
+    </nav>
+  );
 }
+
 export default nav;
