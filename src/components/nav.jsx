@@ -15,7 +15,6 @@ function nav() {
         </li>
       </ul>
     </nav>
-  );
+  ); 
 }
-
 export default nav;

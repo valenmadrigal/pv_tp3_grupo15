@@ -5,8 +5,9 @@ import Nav from './components/nav'
 import Footer from './components/footer'
 import ListaProyectos from './components/ListaProyectos'
 import DetalleProyecto from './components/DetalleProyecto'
+import PerfilUsuario from './components/PerfilUsuario'
+import Dashboard from './components/Dashboard'
 import "./css/styles.css"
-
 
 function App() {
   return (
@@ -15,12 +16,11 @@ function App() {
       <Nav />
       <main>
         <Routes>
-          <Route path="/" element={<ListaProyectos />} />
-          <Route path="/dashboard" element={<ListaProyectos />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/proyectos" element={<ListaProyectos />} />
           <Route path="/proyectos/:id" element={<DetalleProyecto />} />
-          {/* Cuando creen las views, descomentar estas: */}
-          {/* <Route path="/perfil" element={<PerfilUsuario />} /> */}
+          <Route path="/perfil" element={<PerfilUsuario />} />
         </Routes>
       </main>
       <Footer />
