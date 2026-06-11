@@ -4,7 +4,7 @@ function nav(){
             <ul>
                 <li><a href="#">Inicio</a></li>
                 <li><a href="#ListaProyectos">Proyectos</a></li>
-                <li><a href="#">Contacto</a></li>
+                <li><a href="#PerfilUsuario">Perfil</a></li>
             </ul>
         </nav>
     )

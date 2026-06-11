@@ -8,6 +8,7 @@ import Header from './components/header'
 import Footer from './components/footer'
 import Nav  from './components/nav'
 import "./css/styles.css";
+import PerfilUsuario from './components/PerfilUsuario'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,6 +17,8 @@ function App() {
     <>
         <Header />
         <Nav />
+        <PerfilUsuario />
+
         <ListaProyectos />
         <Footer />
     </>
