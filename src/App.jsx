@@ -18,6 +18,7 @@ function App() {
     <>
       <Header />
       <Nav />
+
       <Routes>
         <Route
           path="/"
@@ -39,11 +40,21 @@ function App() {
           <Route path="/perfil" element={<PerfilUsuario />} />
         </Routes>
       </main>
+
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/proyectos" element={<ListaProyectos />} />
+        <Route path="/proyectos/:id" element={<DetalleProyecto />} />
+        <Route path="/perfil" element={<PerfilUsuario />} />
+      </Routes>
+
+
       <Footer />
     </>
   )
 
 }
 
-export default App;
 
+export default App;
