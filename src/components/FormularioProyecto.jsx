@@ -1,4 +1,12 @@
 import { useState } from "react";
+import {
+  TextField,
+  MenuItem,
+  Button,
+  Alert,
+  Stack,
+} from "@mui/material";
+
 
 const ESTADO_INICIAL = {
   titulo: "",
@@ -38,57 +46,63 @@ const FormularioProyecto = ({ onAgregar }) => {
     setError(null);
   };
 
-  return (
-    <form className="form-agregar" onSubmit={handleSubmit}>
+ return (
+  <form onSubmit={handleSubmit}>
+    <Stack spacing={2}>
       {error && (
-        <p className="mensaje mensaje--error" role="status">
+        <Alert severity="error">
           {error}
-        </p>
+        </Alert>
       )}
 
-      <div className="form-agregar__grupo">
-        <label htmlFor="titulo">Título</label>
-        <input
-          id="titulo"
-          name="titulo"
-          type="text"
-          placeholder="Nombre del proyecto"
-          value={formulario.titulo}
-          onChange={handleCampo}
-        />
-      </div>
+      <TextField
+        label="Título"
+        name="titulo"
+        placeholder="Nombre del proyecto"
+        value={formulario.titulo}
+        onChange={handleCampo}
+        fullWidth
+      />
 
-      <div className="form-agregar__grupo">
-        <label htmlFor="categoria">Categoría</label>
-        <input
-          id="categoria"
-          name="categoria"
-          type="text"
-          placeholder="Ej: Educación"
-          value={formulario.categoria}
-          onChange={handleCampo}
-        />
-      </div>
+      <TextField
+        label="Categoría"
+        name="categoria"
+        placeholder="Ej: Educación"
+        value={formulario.categoria}
+        onChange={handleCampo}
+        fullWidth
+      />
 
-      <div className="form-agregar__grupo">
-        <label htmlFor="estado">Estado</label>
-        <select
-          id="estado"
-          name="estado"
-          value={formulario.estado}
-          onChange={handleCampo}
-        >
-          <option value="Pendiente">Pendiente</option>
-          <option value="En progreso">En progreso</option>
-          <option value="Completado">Completado</option>
-        </select>
-      </div>
+      <TextField
+        select
+        label="Estado"
+        name="estado"
+        value={formulario.estado}
+        onChange={handleCampo}
+        fullWidth
+      >
+        <MenuItem value="Pendiente">
+          Pendiente
+        </MenuItem>
 
-      <button className="btn btn--primario" type="submit">
-        ＋ Agregar
-      </button>
-    </form>
-  );
+        <MenuItem value="En progreso">
+          En progreso
+        </MenuItem>
+
+        <MenuItem value="Completado">
+          Completado
+        </MenuItem>
+      </TextField>
+
+      <Button
+        variant="contained"
+        type="submit"
+      >
+        + Agregar
+      </Button>
+    </Stack>
+  </form>
+ );
 };
 
 export default FormularioProyecto;

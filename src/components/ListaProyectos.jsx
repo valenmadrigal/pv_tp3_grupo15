@@ -3,6 +3,11 @@ import RegistroActividad from "./RegistroActividad";
 import proyectoService from "../service/proyectoservice";
 import ProyectoCard from "./proyectoCard";
 import FormularioProyecto from "./FormularioProyecto";
+import {
+  Alert,
+  TextField,
+  Grid
+} from "@mui/material";
 
 const ListaProyectos = () => {
 
@@ -75,12 +80,9 @@ const ListaProyectos = () => {
     <main className="main">
 
       {mensaje && (
-        <p
-          className={`mensaje mensaje--${mensaje.tipo}`}
-          role="status"
-        >
-          {mensaje.texto}
-        </p>
+       <Alert severity="success" sx={{ mb: 2 }}>
+        {mensaje.texto}
+      </Alert>
       )}
 
       <FormularioProyecto onAgregar={handleAgregarProyecto} />
@@ -93,15 +95,15 @@ const ListaProyectos = () => {
             🔍
           </span>
 
-          <input
-            className="buscador__input"
-            type="text"
-            placeholder="Buscar proyecto por título..."
-            value={busqueda}
-            onChange={(e) =>
-              setBusqueda(e.target.value)
-            }
-          />
+        <TextField
+           label="Buscar proyecto"
+           placeholder="Buscar proyecto por título..."
+           value={busqueda}
+           onChange={(e) =>
+             setBusqueda(e.target.value)
+          }
+          fullWidth
+        />
 
         </div>
 
@@ -112,36 +114,36 @@ const ListaProyectos = () => {
 
       </div>
 
-      <div className="proyectos-grilla">
+    <Grid container spacing={2} sx={{ mt: 2 }}>
 
-        {proyectosFiltrados.length === 0 ? (
+  {proyectosFiltrados.length === 0 ? (
 
-          <div className="sin-resultados">
+    <Grid size={12}>
+      <Alert severity="info">
+        No se encontraron proyectos.
+      </Alert>
+    </Grid>
 
-            <span className="sin-resultados__icono">
-              📭
-            </span>
+  ) : (
 
-            No se encontraron proyectos.
+    proyectosFiltrados.map((proyecto) => (
 
-          </div>
+      <Grid
+        key={proyecto.id}
+        size={{ xs: 12, md: 6 }}
+      >
+        <ProyectoCard
+          proyecto={proyecto}
+          handleEliminar={handleEliminar}
+          claseEstado={claseEstado}
+        />
+      </Grid>
 
-        ) : (
+    ))
 
-          proyectosFiltrados.map((proyecto) => (
+  )}
 
-            <ProyectoCard
-              key={proyecto.id}
-              proyecto={proyecto}
-              handleEliminar={handleEliminar}
-              claseEstado={claseEstado}
-            />
-
-          ))
-
-        )}
-
-      </div>
+</Grid>
 
       <RegistroActividad fecha={ultimaActualizacion} />
 

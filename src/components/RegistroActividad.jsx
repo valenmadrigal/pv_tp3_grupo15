@@ -1,3 +1,5 @@
+import { Alert } from "@mui/material";
+
 const RegistroActividad = ({ fecha }) => {
 
   if (!fecha) return null;
@@ -12,14 +14,10 @@ const RegistroActividad = ({ fecha }) => {
     });
 
   return (
-    <p>
-      Última actualización de la lista:
-      {" "}
-      {fechaFormateada}
-      {" "}a las{" "}
-      {horaFormateada}
-      {" "}hs.
-    </p>
+    <Alert severity="info">
+      Última actualización de la lista:{" "}
+      {fechaFormateada} a las {horaFormateada} hs.
+    </Alert>
   );
 };
 
