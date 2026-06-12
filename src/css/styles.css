@@ -242,3 +242,41 @@ footer{
   color: #616161;
   font-size: .85rem;
 }
+
+/* ===== ProyectoCard ===== */
+
+.acciones {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn {
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.eliminar {
+  background-color: #dc3545;
+  color: white;
+}
+
+.detalle {
+  background-color: #6366f1;
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  opacity: 0.85;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}

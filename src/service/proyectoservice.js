@@ -203,7 +203,18 @@ const proyectoService = (() => {
     return proyectos.filter((p) => p.titulo.toLowerCase().includes(termino));
   };
 
-  return { obtenerProyectos, agregarProyecto, eliminarProyecto, buscarProyecto };
+  const obtenerProyectoPorId = (id) => {
+    const idNumerico = Number(id);
+    return proyectos.find((p) => p.id === idNumerico) ?? null;
+  };
+
+  return {
+    obtenerProyectos,
+    agregarProyecto,
+    eliminarProyecto,
+    buscarProyecto,
+    obtenerProyectoPorId,
+  };
 })();
 
 export default proyectoService;
