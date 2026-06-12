@@ -1,8 +1,4 @@
-import {
-  Container,
-  Typography,
-  Paper
-} from "@mui/material";
+import { Container, Typography, Paper} from "@mui/material";
 
 function PerfilUsuario() {
 
