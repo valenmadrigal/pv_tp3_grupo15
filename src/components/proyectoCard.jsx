@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function ProyectoCard({
   proyecto,
   handleEliminar,
@@ -24,13 +26,23 @@ function ProyectoCard({
         Estado: {estado}
       </p>
 
-      <button onClick={() => handleEliminar(id)}>
-        Eliminar
-      </button>
+      <div className="acciones">
 
-      <button>
-        Ver detalle
-      </button>
+        <button 
+          className="btn eliminar"
+          onClick={() => handleEliminar(id)}
+        >
+          Eliminar
+        </button>
+
+        <Link 
+          className="btn detalle"
+          to={`/proyectos/${id}`}
+        >
+          Ver detalle
+        </Link>
+
+      </div>
 
     </div>
   );
