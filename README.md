@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Gestión de Proyectos Educativos
 
 Aplicación web desarrollada con React y Vite para gestionar proyectos educativos.
@@ -23,3 +24,4 @@ Aplicación web desarrollada con React y Vite para gestionar proyectos educativo
 - Camila Araceli Romero - GitHub: CamilaRomero0
 - Yesica Arias - GitHub: AriasYesica27
 - Jesús Cabrera Garcia - GitHub: jesuscabrera22
+
