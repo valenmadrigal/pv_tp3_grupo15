@@ -1,4 +1,6 @@
 import { Typography, Box, Paper, Avatar, Divider, Chip } from "@mui/material";
+import { useContext } from "react";
+import { UsuarioContext } from "../context/UsuarioContext";
 import SchoolIcon from "@mui/icons-material/School";
 import PersonIcon from "@mui/icons-material/Person";
 import BadgeIcon from "@mui/icons-material/Badge";
@@ -6,9 +8,11 @@ import BusinessIcon from "@mui/icons-material/Business";
 
 function PerfilUsuario() {
 
+  const { usuario } = useContext(UsuarioContext);
+
   const datos = [
-    { icon: <PersonIcon />, label: "Nombre", value: "Valentina Madrigal" },
-    { icon: <BadgeIcon />, label: "Rol", value: "Alumna" },
+    { icon: <PersonIcon />, label: "Nombre", value: usuario.nombre },
+    { icon: <BadgeIcon />, label: "Rol", value: usuario.rol },
     { icon: <BusinessIcon />, label: "Institución", value: "Facultad de Ingeniería" },
     { icon: <SchoolIcon />, label: "Carrera", value: "Analista Programador Universitario" },
   ];
@@ -40,12 +44,18 @@ function PerfilUsuario() {
           V
         </Avatar>
         <Typography variant="h4" fontWeight="bold">
-          Valentina Madrigal
-        </Typography>
-        <Chip
-          label="Alumna"
-          sx={{ mt: 1, bgcolor: "rgba(255,255,255,0.2)", color: "white", fontWeight: "bold" }}
-        />
+          {usuario.nombre}
+          </Typography>
+          
+          <Chip
+          label={usuario.rol}
+          sx={{
+            mt: 1,
+            bgcolor: "rgba(255,255,255,0.2)",
+            color: "white",
+            fontWeight: "bold",
+            }}
+/>
       </Box>
 
       {/* Datos */}
