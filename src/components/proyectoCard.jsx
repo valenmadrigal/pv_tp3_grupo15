@@ -1,10 +1,18 @@
-import { Link } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Stack
+} from "@mui/material";
 
 function ProyectoCard({
   proyecto,
   handleEliminar,
   claseEstado
 }) {
+
+  if (!proyecto) return null;
 
   const {
     titulo,
@@ -14,37 +22,44 @@ function ProyectoCard({
   } = proyecto;
 
   return (
-    <div className="card">
+    <Card sx={{ marginBottom: 2 }}>
+      <CardContent>
 
-      <h3>{titulo}</h3>
+        <Typography variant="h5" gutterBottom>
+          {titulo}
+        </Typography>
 
-      <p>
-        Categoría: {categoria}
-      </p>
+        <Typography>
+          Categoría: {categoria}
+        </Typography>
 
-      <p className={claseEstado(estado)}>
-        Estado: {estado}
-      </p>
+        <Typography className={claseEstado?.(estado)}>
+          Estado: {estado}
+        </Typography>
 
-      <div className="acciones">
-
-        <button 
-          className="btn eliminar"
-          onClick={() => handleEliminar(id)}
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{ marginTop: 2 }}
         >
-          Eliminar
-        </button>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => handleEliminar?.(id)}
+          >
+            Eliminar
+          </Button>
 
-        <Link 
-          className="btn detalle"
-          to={`/proyectos/${id}`}
-        >
-          Ver detalle
-        </Link>
+          <Button
+            variant="outlined"
+            onClick={() => console.log(`Ver detalle del proyecto ${id}`)}
+          >
+            Ver detalle
+          </Button>
+        </Stack>
 
-      </div>
-
-    </div>
+      </CardContent>
+    </Card>
   );
 }
 
