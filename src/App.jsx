@@ -10,24 +10,13 @@ import PerfilUsuario from './components/PerfilUsuario'
 import DetalleProyecto from './components/DetalleProyecto'
 import Dashboard from './components/Dashboard'
 import "./css/styles.css"
+import { UsuarioProvider } from './context/UsuarioContext';
 
 function App() {
   return (
-    <>
+    <UsuarioProvider>
       <Header />
       <Nav />
-
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-      
-            </>
-          }
-        />
-        <Route path="/proyectos/:id" element={<DetalleProyecto />} />
-      </Routes>
 
       <main>
         <Routes>
@@ -39,12 +28,9 @@ function App() {
         </Routes>
       </main>
 
-
       <Footer />
-    </>
-  )
-
+    </UsuarioProvider>
+  );
 }
-
 
 export default App;

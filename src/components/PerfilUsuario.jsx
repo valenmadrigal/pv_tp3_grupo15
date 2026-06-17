@@ -32,16 +32,16 @@ function PerfilUsuario() {
         }}
       >
         <Avatar
-          sx={{
-            width: 90,
-            height: 90,
-            bgcolor: "white",
-            color: "#6366f1",
-            fontSize: 40,
-            margin: "0 auto 16px",
-          }}
-        >
-          V
+         sx={{
+         width: 90,
+         height: 90,
+         bgcolor: "white",
+         color: "#6366f1",
+         fontSize: 40,
+         margin: "0 auto 16px",
+         }}
+   > 
+      {usuario.nombre.charAt(0).toUpperCase()}
         </Avatar>
         <Typography variant="h4" fontWeight="bold">
           {usuario.nombre}
