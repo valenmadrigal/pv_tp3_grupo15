@@ -1,25 +1,85 @@
-import { Typography, Box, Paper, Avatar, Divider, Chip } from "@mui/material";
-import { useContext } from "react";
+import {
+  Typography,
+  Box,
+  Paper,
+  Avatar,
+  Divider,
+  Chip,
+  TextField,
+  Button,
+  Alert,
+  Stack,
+} from "@mui/material";
+import { useContext, useEffect, useState } from "react";
 import { UsuarioContext } from "../context/UsuarioContext";
 import SchoolIcon from "@mui/icons-material/School";
 import PersonIcon from "@mui/icons-material/Person";
 import BadgeIcon from "@mui/icons-material/Badge";
 import BusinessIcon from "@mui/icons-material/Business";
+import EditIcon from "@mui/icons-material/Edit";
 
 function PerfilUsuario() {
+  const { usuario, actualizarPerfil } = useContext(UsuarioContext);
 
-  const { usuario } = useContext(UsuarioContext);
+  const [formulario, setFormulario] = useState({
+    nombre: usuario.nombre,
+    rol: usuario.rol,
+    institucion: usuario.institucion,
+    carrera: usuario.carrera,
+  });
+  const [error, setError] = useState(null);
+  const [mensajeExito, setMensajeExito] = useState(null);
+
+  useEffect(() => {
+    setFormulario({
+      nombre: usuario.nombre,
+      rol: usuario.rol,
+      institucion: usuario.institucion,
+      carrera: usuario.carrera,
+    });
+  }, [usuario]);
 
   const datos = [
     { icon: <PersonIcon />, label: "Nombre", value: usuario.nombre },
     { icon: <BadgeIcon />, label: "Rol", value: usuario.rol },
-    { icon: <BusinessIcon />, label: "Institución", value: "Facultad de Ingeniería" },
-    { icon: <SchoolIcon />, label: "Carrera", value: "Analista Programador Universitario" },
+    {
+      icon: <BusinessIcon />,
+      label: "Institución",
+      value: usuario.institucion,
+    },
+    { icon: <SchoolIcon />, label: "Carrera", value: usuario.carrera },
   ];
+
+  const handleCampo = (e) => {
+    setFormulario({
+      ...formulario,
+      [e.target.name]: e.target.value,
+    });
+    setError(null);
+    setMensajeExito(null);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!formulario.nombre.trim() || !formulario.rol.trim()) {
+      setError("Por favor completá el nombre y el rol.");
+      return;
+    }
+
+    actualizarPerfil({
+      nombre: formulario.nombre.trim(),
+      rol: formulario.rol.trim(),
+      institucion: formulario.institucion.trim(),
+      carrera: formulario.carrera.trim(),
+    });
+
+    setMensajeExito("Perfil actualizado correctamente.");
+    setError(null);
+  };
 
   return (
     <Box sx={{ p: 4, width: "100%" }}>
-
       {/* Hero */}
       <Box
         sx={{
@@ -32,39 +92,42 @@ function PerfilUsuario() {
         }}
       >
         <Avatar
-         sx={{
-         width: 90,
-         height: 90,
-         bgcolor: "white",
-         color: "#6366f1",
-         fontSize: 40,
-         margin: "0 auto 16px",
-         }}
-   > 
-      {usuario.nombre.charAt(0).toUpperCase()}
+          sx={{
+            width: 90,
+            height: 90,
+            bgcolor: "white",
+            color: "#6366f1",
+            fontSize: 40,
+            margin: "0 auto 16px",
+          }}
+        >
+          {usuario.nombre.charAt(0).toUpperCase()}
         </Avatar>
         <Typography variant="h4" fontWeight="bold">
           {usuario.nombre}
-          </Typography>
-          
-          <Chip
+        </Typography>
+
+        <Chip
           label={usuario.rol}
           sx={{
             mt: 1,
             bgcolor: "rgba(255,255,255,0.2)",
             color: "white",
             fontWeight: "bold",
-            }}
-/>
+          }}
+        />
       </Box>
 
       {/* Datos */}
-      <Paper elevation={3} sx={{ borderRadius: 3, p: 3, maxWidth: 600, margin: "0 auto" }}>
+      <Paper
+        elevation={3}
+        sx={{ borderRadius: 3, p: 3, maxWidth: 600, margin: "0 auto", mb: 3 }}
+      >
         {datos.map((item, i) => (
           <Box key={i}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2, py: 2 }}>
+            <Box sx={{ display: "flex", gap: 2, py: 2 }}>
               <Box sx={{ color: "#6366f1" }}>{item.icon}</Box>
-              <Box>
+              <Box sx={{ textAlign: "left" }}>
                 <Typography variant="body2" color="text.secondary">
                   {item.label}
                 </Typography>
@@ -78,6 +141,73 @@ function PerfilUsuario() {
         ))}
       </Paper>
 
+      {/* Editar perfil */}
+      <Paper
+        elevation={3}
+        sx={{ borderRadius: 3, p: 3, maxWidth: 600, margin: "0 auto" }}
+      >
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
+          <EditIcon sx={{ color: "#6366f1" }} />
+          <Typography variant="h6" fontWeight="600">
+            Actualizar perfil
+          </Typography>
+        </Box>
+
+        <form onSubmit={handleSubmit}>
+          <Stack spacing={2}>
+            {error && <Alert severity="error">{error}</Alert>}
+            {mensajeExito && <Alert severity="success">{mensajeExito}</Alert>}
+
+            <TextField
+              label="Nombre"
+              name="nombre"
+              value={formulario.nombre}
+              onChange={handleCampo}
+              fullWidth
+              required
+            />
+
+            <TextField
+              label="Rol"
+              name="rol"
+              value={formulario.rol}
+              onChange={handleCampo}
+              fullWidth
+              required
+            />
+
+            <TextField
+              label="Institucion"
+              name="institucion"
+              value={formulario.institucion}
+              onChange={handleCampo}
+              fullWidth
+              required
+            />
+
+            <TextField
+              label="Carrera"
+              name="carrera"
+              value={formulario.carrera}
+              onChange={handleCampo}
+              fullWidth
+              required
+            />
+
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{
+                alignSelf: "center",
+                bgcolor: "#6366f1",
+                "&:hover": { bgcolor: "#4f46e5" },
+              }}
+            >
+              Guardar cambios
+            </Button>
+          </Stack>
+        </form>
+      </Paper>
     </Box>
   );
 }
