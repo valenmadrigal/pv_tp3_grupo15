@@ -9,7 +9,7 @@ const DetalleProyecto = () => {
     return (
       <main className="main">
         <p>Proyecto no encontrado.</p>
-        <Link to="/">Volver al listado</Link>
+        <Link to="/proyectos">Volver al listado</Link>
       </main>
     );
   }
@@ -26,7 +26,7 @@ const DetalleProyecto = () => {
   return (
     <main className="main">
       <div className="detalle-proyecto">
-        <Link to="/">← Volver al listado</Link>
+        <Link to="/proyectos">← Volver al listado</Link>
 
         <h2>{titulo}</h2>
         <p>Categoría: {categoria}</p>
