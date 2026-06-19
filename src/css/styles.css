@@ -8,25 +8,25 @@
   --success:#22c55e;
   --warning:#f59e0b;
   --danger:#ef4444;
-
+ 
   --radio:16px;
   --sombra:0 4px 12px rgba(0,0,0,.08);
   --transicion:.25s ease;
 }
-
+ 
 /* GENERAL */
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
 }
-
+ 
 body{
   font-family:'Segoe UI',sans-serif;
   background:var(--fondo);
   color:var(--texto);
 }
-
+ 
 /* HEADER */
 header{
   background:linear-gradient(135deg,var(--principal),var(--principal-hover));
@@ -34,19 +34,19 @@ header{
   text-align:center;
   padding:35px 20px;
 }
-
+ 
 nav{
   background:var(--secundario);
   padding:12px;
 }
-
+ 
 nav ul{
   display:flex;
   justify-content:center;
   gap:20px;
   list-style:none;
 }
-
+ 
 nav a{
   color:white;
   text-decoration:none;
@@ -54,18 +54,32 @@ nav a{
   border-radius:10px;
   transition:var(--transicion);
 }
-
+ 
 nav a:hover{
   background:var(--principal);
 }
-
-/* MAIN */
+ 
+/*
+  MAIN: se sacaron max-width, margin y padding. Cada página (Dashboard,
+  PerfilUsuario, etc.) ya define su propio maxWidth:1200 + mx:"auto" + p:4
+  por sx de MUI. Si <main> también limita el ancho, quedan dos contenedores
+  anidados sumando padding y compitiendo por el centrado — eso era lo que
+  causaba el desplazamiento que viste en la pantalla de perfil.
+  <main> queda como wrapper puramente semántico, sin estilos de layout.
+*/
 main{
-  max-width:1100px;
-  margin:auto;
-  padding:30px 20px;
+  display:block;
 }
-
+ 
+/* FOOTER */
+footer{
+  background:var(--secundario);
+  color:white;
+  text-align:center;
+  padding:18px;
+  margin-top:40px;
+}
+ 
 /* MENSAJES */
 .mensaje{
   padding:12px 16px;
@@ -73,19 +87,19 @@ main{
   margin-bottom:16px;
   font-weight:500;
 }
-
+ 
 .mensaje--exito{
   background:#dcfce7;
   color:#166534;
   border:1px solid #86efac;
 }
-
+ 
 .mensaje--error{
   background:#fee2e2;
   color:#991b1b;
   border:1px solid #fca5a5;
 }
-
+ 
 /* FORM */
 .form-agregar{
   display:flex;
@@ -97,7 +111,7 @@ main{
   box-shadow:var(--sombra);
   margin-bottom:25px;
 }
-
+ 
 .form-agregar__grupo{
   flex:1;
   min-width:200px;
@@ -105,13 +119,13 @@ main{
   flex-direction:column;
   gap:6px;
 }
-
+ 
 input,select{
   padding:12px;
   border:1px solid #ddd;
   border-radius:10px;
 }
-
+ 
 /* BOTONES */
 .btn{
   border:none;
@@ -121,21 +135,21 @@ input,select{
   font-weight:bold;
   transition:var(--transicion);
 }
-
+ 
 .btn--primario{
   background:var(--principal);
   color:white;
 }
-
+ 
 .btn--primario:hover{
   background:var(--principal-hover);
 }
-
+ 
 .btn--peligro{
   background:var(--danger);
   color:white;
 }
-
+ 
 /* BUSCADOR */
 .controles{
   display:flex;
@@ -144,7 +158,7 @@ input,select{
   margin-bottom:25px;
   gap:15px;
 }
-
+ 
 .buscador{
   background:white;
   padding:12px 16px;
@@ -155,21 +169,21 @@ input,select{
   flex:1;
   max-width:400px;
 }
-
+ 
 .buscador input{
   border:none;
   outline:none;
   width:100%;
   background:none;
 }
-
+ 
 /* CARDS */
 .proyectos-grilla{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:20px;
 }
-
+ 
 .card{
   background:white;
   padding:20px;
@@ -177,16 +191,16 @@ input,select{
   box-shadow:var(--sombra);
   transition:var(--transicion);
 }
-
+ 
 .card:hover{
   transform:translateY(-5px);
 }
-
+ 
 .card__categoria{
   margin:10px 0;
   color:#6b7280;
 }
-
+ 
 /* ESTADOS */
 .card__estado{
   display:inline-block;
@@ -196,44 +210,35 @@ input,select{
   font-weight:bold;
   margin-bottom:15px;
 }
-
+ 
 .estado--completado{
   background:#dcfce7;
   color:#166534;
 }
-
+ 
 .estado--en-progreso{
   background:#dbeafe;
   color:#1d4ed8;
 }
-
+ 
 .estado--pendiente{
   background:#fef3c7;
   color:#92400e;
 }
-
-/* FOOTER */
-footer{
-  background:var(--secundario);
-  color:white;
-  text-align:center;
-  padding:18px;
-  margin-top:40px;
-}
-
+ 
 /* RESPONSIVE */
 @media(max-width:768px){
-
+ 
   .form-agregar,
   .controles,
   nav ul{
     flex-direction:column;
   }
-
+ 
   .buscador{
     max-width:100%;
   }
-
+ 
   .btn--primario{
     width:100%;
   }

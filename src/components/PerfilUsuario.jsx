@@ -17,39 +17,38 @@ import PersonIcon from "@mui/icons-material/Person";
 import BadgeIcon from "@mui/icons-material/Badge";
 import BusinessIcon from "@mui/icons-material/Business";
 import EditIcon from "@mui/icons-material/Edit";
-
+ 
 function PerfilUsuario() {
   const { usuario, actualizarPerfil } = useContext(UsuarioContext);
-
-  const [formulario, setFormulario] = useState({
-    nombre: usuario.nombre,
-    rol: usuario.rol,
-    institucion: usuario.institucion,
-    carrera: usuario.carrera,
-  });
+ 
+  
+  const usuarioSeguro = {
+    nombre: usuario?.nombre ?? "Invitado",
+    rol: usuario?.rol ?? "Sin rol asignado",
+    institucion: usuario?.institucion ?? "No especificada",
+    carrera: usuario?.carrera ?? "No especificada",
+  };
+ 
+  const [formulario, setFormulario] = useState(usuarioSeguro);
   const [error, setError] = useState(null);
   const [mensajeExito, setMensajeExito] = useState(null);
-
+ 
   useEffect(() => {
-    setFormulario({
-      nombre: usuario.nombre,
-      rol: usuario.rol,
-      institucion: usuario.institucion,
-      carrera: usuario.carrera,
-    });
+    setFormulario(usuarioSeguro);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usuario]);
-
+ 
   const datos = [
-    { icon: <PersonIcon />, label: "Nombre", value: usuario.nombre },
-    { icon: <BadgeIcon />, label: "Rol", value: usuario.rol },
+    { icon: <PersonIcon />, label: "Nombre", value: usuarioSeguro.nombre },
+    { icon: <BadgeIcon />, label: "Rol", value: usuarioSeguro.rol },
     {
       icon: <BusinessIcon />,
       label: "Institución",
-      value: usuario.institucion,
+      value: usuarioSeguro.institucion,
     },
-    { icon: <SchoolIcon />, label: "Carrera", value: usuario.carrera },
+    { icon: <SchoolIcon />, label: "Carrera", value: usuarioSeguro.carrera },
   ];
-
+ 
   const handleCampo = (e) => {
     setFormulario({
       ...formulario,
@@ -58,28 +57,28 @@ function PerfilUsuario() {
     setError(null);
     setMensajeExito(null);
   };
-
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+ 
     if (!formulario.nombre.trim() || !formulario.rol.trim()) {
       setError("Por favor completá el nombre y el rol.");
       return;
     }
-
+ 
     actualizarPerfil({
       nombre: formulario.nombre.trim(),
       rol: formulario.rol.trim(),
       institucion: formulario.institucion.trim(),
       carrera: formulario.carrera.trim(),
     });
-
+ 
     setMensajeExito("Perfil actualizado correctamente.");
     setError(null);
   };
-
+ 
   return (
-    <Box sx={{ p: 4, width: "100%" }}>
+    <Box sx={{ p: 4, maxWidth: 1200, mx: "auto", width: "100%" }}>
       {/* Hero */}
       <Box
         sx={{
@@ -101,14 +100,14 @@ function PerfilUsuario() {
             margin: "0 auto 16px",
           }}
         >
-          {usuario.nombre.charAt(0).toUpperCase()}
+          {usuarioSeguro.nombre.charAt(0).toUpperCase()}
         </Avatar>
         <Typography variant="h4" fontWeight="bold">
-          {usuario.nombre}
+          {usuarioSeguro.nombre}
         </Typography>
-
+ 
         <Chip
-          label={usuario.rol}
+          label={usuarioSeguro.rol}
           sx={{
             mt: 1,
             bgcolor: "rgba(255,255,255,0.2)",
@@ -117,14 +116,14 @@ function PerfilUsuario() {
           }}
         />
       </Box>
-
+ 
       {/* Datos */}
       <Paper
         elevation={3}
         sx={{ borderRadius: 3, p: 3, maxWidth: 600, margin: "0 auto", mb: 3 }}
       >
         {datos.map((item, i) => (
-          <Box key={i}>
+          <Box key={item.label}>
             <Box sx={{ display: "flex", gap: 2, py: 2 }}>
               <Box sx={{ color: "#6366f1" }}>{item.icon}</Box>
               <Box sx={{ textAlign: "left" }}>
@@ -140,7 +139,7 @@ function PerfilUsuario() {
           </Box>
         ))}
       </Paper>
-
+ 
       {/* Editar perfil */}
       <Paper
         elevation={3}
@@ -152,12 +151,12 @@ function PerfilUsuario() {
             Actualizar perfil
           </Typography>
         </Box>
-
+ 
         <form onSubmit={handleSubmit}>
           <Stack spacing={2}>
             {error && <Alert severity="error">{error}</Alert>}
             {mensajeExito && <Alert severity="success">{mensajeExito}</Alert>}
-
+ 
             <TextField
               label="Nombre"
               name="nombre"
@@ -166,7 +165,7 @@ function PerfilUsuario() {
               fullWidth
               required
             />
-
+ 
             <TextField
               label="Rol"
               name="rol"
@@ -175,16 +174,16 @@ function PerfilUsuario() {
               fullWidth
               required
             />
-
+ 
             <TextField
-              label="Institucion"
+              label="Institución"
               name="institucion"
               value={formulario.institucion}
               onChange={handleCampo}
               fullWidth
               required
             />
-
+ 
             <TextField
               label="Carrera"
               name="carrera"
@@ -193,12 +192,13 @@ function PerfilUsuario() {
               fullWidth
               required
             />
-
+ 
             <Button
               type="submit"
               variant="contained"
               sx={{
                 alignSelf: "center",
+                textTransform: "none",
                 bgcolor: "#6366f1",
                 "&:hover": { bgcolor: "#4f46e5" },
               }}
@@ -211,5 +211,5 @@ function PerfilUsuario() {
     </Box>
   );
 }
-
+ 
 export default PerfilUsuario;

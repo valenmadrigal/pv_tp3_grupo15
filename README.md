@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Gestión de Proyectos Educativos
 
 Aplicación web desarrollada con React y Vite para gestionar proyectos educativos.
@@ -9,6 +8,8 @@ Aplicación web desarrollada con React y Vite para gestionar proyectos educativo
 - Agregar proyectos
 - Buscar proyectos
 - Eliminar proyectos
+- Gestión de perfil de usuario mediante Context API.
+- Persistencia de datos con localStorage.
 
 ## Tecnologías utilizadas
 
@@ -16,6 +17,8 @@ Aplicación web desarrollada con React y Vite para gestionar proyectos educativo
 - Vite
 - JavaScript
 - CSS
+- Material UI
+- Context API
 
 ## Integrantes
 
