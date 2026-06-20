@@ -16,30 +16,34 @@ import SchoolIcon from "@mui/icons-material/School";
 import PersonIcon from "@mui/icons-material/Person";
 import BadgeIcon from "@mui/icons-material/Badge";
 import BusinessIcon from "@mui/icons-material/Business";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import EditIcon from "@mui/icons-material/Edit";
  
 function PerfilUsuario() {
   const { usuario, actualizarPerfil } = useContext(UsuarioContext);
  
-  
+
   const usuarioSeguro = {
     nombre: usuario?.nombre ?? "Invitado",
+    dni: usuario?.dni ?? "Sin DNI",
     rol: usuario?.rol ?? "Sin rol asignado",
     institucion: usuario?.institucion ?? "No especificada",
     carrera: usuario?.carrera ?? "No especificada",
   };
  
   const [formulario, setFormulario] = useState(usuarioSeguro);
+  const [editando, setEditando] = useState(false);
   const [error, setError] = useState(null);
   const [mensajeExito, setMensajeExito] = useState(null);
  
   useEffect(() => {
     setFormulario(usuarioSeguro);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [usuario]);
  
   const datos = [
     { icon: <PersonIcon />, label: "Nombre", value: usuarioSeguro.nombre },
+    { icon: <AssignmentIndIcon />, label: "DNI", value: usuarioSeguro.dni },
     { icon: <BadgeIcon />, label: "Rol", value: usuarioSeguro.rol },
     {
       icon: <BusinessIcon />,
@@ -58,6 +62,19 @@ function PerfilUsuario() {
     setMensajeExito(null);
   };
  
+  const handleEditar = () => {
+    setEditando(true);
+    setError(null);
+    setMensajeExito(null);
+  };
+ 
+  const handleCancelar = () => {
+    setFormulario(usuarioSeguro);
+    setEditando(false);
+    setError(null);
+    setMensajeExito(null);
+  };
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
  
@@ -68,6 +85,7 @@ function PerfilUsuario() {
  
     actualizarPerfil({
       nombre: formulario.nombre.trim(),
+      dni: formulario.dni.trim(),
       rol: formulario.rol.trim(),
       institucion: formulario.institucion.trim(),
       carrera: formulario.carrera.trim(),
@@ -75,6 +93,7 @@ function PerfilUsuario() {
  
     setMensajeExito("Perfil actualizado correctamente.");
     setError(null);
+    setEditando(false);
   };
  
   return (
@@ -145,11 +164,29 @@ function PerfilUsuario() {
         elevation={3}
         sx={{ borderRadius: 3, p: 3, maxWidth: 600, margin: "0 auto" }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
-          <EditIcon sx={{ color: "#6366f1" }} />
-          <Typography variant="h6" fontWeight="600">
-            Actualizar perfil
-          </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            mb: 2,
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <EditIcon sx={{ color: "#6366f1" }} />
+            <Typography variant="h6" fontWeight="600">
+              Actualizar perfil
+            </Typography>
+          </Box>
+ 
+          {!editando && (
+            <Button
+              onClick={handleEditar}
+              sx={{ textTransform: "none", color: "#6366f1" }}
+            >
+              Editar perfil
+            </Button>
+          )}
         </Box>
  
         <form onSubmit={handleSubmit}>
@@ -164,6 +201,17 @@ function PerfilUsuario() {
               onChange={handleCampo}
               fullWidth
               required
+              disabled={!editando}
+            />
+ 
+            <TextField
+              label="DNI"
+              name="dni"
+              value={formulario.dni}
+              onChange={handleCampo}
+              fullWidth
+              required
+              disabled={!editando}
             />
  
             <TextField
@@ -173,6 +221,7 @@ function PerfilUsuario() {
               onChange={handleCampo}
               fullWidth
               required
+              disabled={!editando}
             />
  
             <TextField
@@ -182,6 +231,7 @@ function PerfilUsuario() {
               onChange={handleCampo}
               fullWidth
               required
+              disabled={!editando}
             />
  
             <TextField
@@ -191,20 +241,30 @@ function PerfilUsuario() {
               onChange={handleCampo}
               fullWidth
               required
+              disabled={!editando}
             />
  
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{
-                alignSelf: "center",
-                textTransform: "none",
-                bgcolor: "#6366f1",
-                "&:hover": { bgcolor: "#4f46e5" },
-              }}
-            >
-              Guardar cambios
-            </Button>
+            {editando && (
+              <Stack direction="row" spacing={2} justifyContent="center">
+                <Button
+                  onClick={handleCancelar}
+                  sx={{ textTransform: "none" }}
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    textTransform: "none",
+                    bgcolor: "#6366f1",
+                    "&:hover": { bgcolor: "#4f46e5" },
+                  }}
+                >
+                  Guardar cambios
+                </Button>
+              </Stack>
+            )}
           </Stack>
         </form>
       </Paper>

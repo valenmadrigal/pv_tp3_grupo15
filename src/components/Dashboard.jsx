@@ -19,8 +19,7 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
  
 function Dashboard() {
-  // Conteos principales. El total siempre debería calcularse a partir
-  // de los datos reales (ej. proyectos.length) en vez de hardcodearse.
+
   const stats = [
     {
       label: "Total de proyectos",
@@ -52,8 +51,7 @@ function Dashboard() {
     },
   ];
  
-  // Desglose para la barra segmentada de "Avance General".
-  // Los valores deberían coincidir con los stats de arriba (5+4+3 = 12).
+
   const breakdown = [
     { label: "En curso", value: 5, color: "#3b82f6" },
     { label: "Completados", value: 4, color: "#22c55e" },
